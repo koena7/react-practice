@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 function App() {
   // Let's set the required variables
@@ -6,6 +6,13 @@ function App() {
   const [charactersAllowed, setCharactersAllowed] = useState(false);
   const [numbersAllowed, setNumbersAllowed] = useState(false);
   const [password, setPassword] = useState("");
+
+  const passRef = useRef();
+
+  const copyToClipboard = () => {
+    passRef.current.select();
+    window.navigator.clipboard.writeText(passRef.current.value);
+  }
 
   // now we will use useCallback hook, as we need to generate password on different value changes but we also need to use caching and memoization.
   const passGenerator = useCallback(() => {
@@ -36,8 +43,9 @@ function App() {
               readOnly 
               placeholder='password' 
               value={password} 
+              ref={passRef}
               className="w-full outline-none bg-amber-50 rounded-l-full p-2 overflow-hidden"/>
-              <button className="outline-none bg-pink-600 py-2 px-5 rounded-r-full">Copy</button>
+              <button className="outline-none hover:bg-pink-500 transition bg-pink-600 py-2 px-5 rounded-r-full" onClick={copyToClipboard}>Copy</button>
           </div>
           <div className='flex flex-row m-2 justify-center items-center my-4'>
             <div className='p-2'>
