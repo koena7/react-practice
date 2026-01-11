@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+/* This is here to enable changing of mode from dark to light as it 
+is set by default in latest versions of tailwind */
